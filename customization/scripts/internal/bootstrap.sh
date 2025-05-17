@@ -18,8 +18,8 @@
 set -euo pipefail
 
 # --- CONFIGURATION ---
-UPSTREAM_REPO="https://github.com/langfuse/langfuse.git"
-PERSONAL_REPO="git@github.com:macayaven/langfuse-fork.git"
+OFFICIAL_LANGFUSE_REPO="https://github.com/langfuse/langfuse.git"
+FORKED_LANGFUSE_REPO="https://github.com:macayaven/langfuse-fork.git"
 TARGET_DIR="customization"
 ENV_TEMPLATE_FILE=".env.local.example"
 
@@ -49,29 +49,24 @@ fi
 
 # --- STEP 1: Clone Langfuse from upstream ---
 echo "📥 Cloning upstream Langfuse..."
-git clone "$UPSTREAM_REPO" "$TARGET_DIR"
+git clone "$OFFICIAL_LANGFUSE_REPO" "$TARGET_DIR"
 cd "$TARGET_DIR"
-
 # --- STEP 2: Configure remotes ---
 echo "🔧 Setting 'origin' as your personal repo and 'upstream' as official Langfuse..."
 git remote rename origin upstream
 
 # Add your personal repo
-git remote add origin "$PERSONAL_REPO"
+git remote add origin "$FORKED_LANGFUSE_REPO"
 
 # Make origin the default for push/pull
-git remote set-url origin "$PERSONAL_REPO"
-git remote set-url --push origin "$PERSONAL_REPO"
+git remote set-url origin "$FORKED_LANGFUSE_REPO"
+git remote set-url --push origin "$FORKED_LANGFUSE_REPO"
 git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
 
 # Prevent accidental pushes to upstream
 git remote set-url --push upstream no_push
 
-# --- STEP 3: Push to personal GitHub repo ---
-echo "🚀 Pushing code to your personal fork..."
-git push -u origin main || git push -u origin master
-
-# --- STEP 4: Generate .env.local.example with placeholders ---
+# --- STEP 3: Generate .env.local.example with placeholders ---
 echo "📝 Creating .env.local.example..."
 cat >"$ENV_TEMPLATE_FILE" <<EOF
 DATABASE_URL=postgresql://postgres:yourpassword@postgres:5432/postgres
@@ -85,19 +80,24 @@ EOF
 
 echo "✅ .env.local.example created."
 
-# --- STEP 5: Copy override file if present ---
+# --- STEP 4: Copy override file if present ---
 OVERRIDE_SOURCE_PATH="$(dirname "$0")/../docker-compose.override.yml"
 if [ -f "$OVERRIDE_SOURCE_PATH" ]; then
   echo "📦 Copying docker-compose.override.yml into project root..."
   cp "$OVERRIDE_SOURCE_PATH" .
 fi
 
+# --- STEP 5: Push to personal GitHub repo ---
+echo "🚀 Pushing code to your personal fork..."
+git push -u origin main || git push -u origin master
+
 echo "🎉 Bootstrap complete."
 echo "👉 Next steps:"
-echo "   1. cd $TARGET_DIR"
-echo "   2. make env"
-echo "   3. make up"
-echo "   4. make health"
-echo "🤝 Optional steps:"
-echo "   5. make check"
-echo "   6. make update"
+echo "   1. follow the user workflow instructions to deploy a local customized langfuse stack"
+
+echo "⏱️ Regularly update your fork from upstream:"
+echo "   1.A github action will notify if new releases are available"
+echo "   or proactively check for updates with:"
+echo "   1.B make check"
+echo "   Update your fork with:"
+echo "   2.  make update"

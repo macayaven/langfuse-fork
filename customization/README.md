@@ -58,6 +58,28 @@ Once running, open:
 
 - `make lint`: Lint Docker Compose and shell scripts
 - `make install-linters`: Install shellcheck, shfmt for local checks
+- `make clean`: Stop the stack and remove all Docker resources (volumes, networks)
+
+## 🛠️ Development Tips
+
+### VS Code Settings
+
+If you're using VS Code, add these settings to your local `.vscode/settings.json` file for better YAML support with Docker Compose overrides:
+
+```json
+{
+  "yaml.customTags": [
+    "!override sequence",
+    "!override mapping",
+    "!override scalar",
+    "!reset sequence",
+    "!reset mapping",
+    "!reset scalar"
+  ]
+}
+```
+
+These settings help VS Code properly recognize the custom YAML tags used in our Docker Compose override files.
 
 Enjoy tracing! ✨
 
