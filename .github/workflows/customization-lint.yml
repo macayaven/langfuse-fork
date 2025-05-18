@@ -1,13 +1,19 @@
-name: Customization Lint
+name: Quality Check for onboarding additions
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'customization/**'
+      - '.github/workflows/customization-lint.yml'
   pull_request:
+    paths:
+      - 'customization/**'
+      - '.github/workflows/customization-lint.yml'
 
 jobs:
   lint:
-    name: Lint Bash & Docker Compose
+    name: Lint Bash & Docker Compose for customization/ contents
     runs-on: ubuntu-latest
 
     steps:
