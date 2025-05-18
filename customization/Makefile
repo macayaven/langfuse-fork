@@ -16,7 +16,7 @@ CUSTOM_PATH := $(abspath $(MAKEFILE_DIR)/../customization)
 # -------------------------------------------------
 
 help:
-	@echo "� Langfuse Fork - Make Commands"
+	@echo "� Langfuse Fork for quick deployment - Make Commands"
 	@echo ""
 	@echo "🚀 Regular Usage Commands (Day-to-Day Operations):"
 	@echo "  make help          - Show this help message"
