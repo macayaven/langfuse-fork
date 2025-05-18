@@ -1,10 +1,6 @@
-# 🛠️ Langfuse Onboarding – Maintainer Guide
+# 🛠️ Setup Guide
 
-This guide is for maintainers of the fork (`macayaven/langfuse-fork`). It outlines one-time setup tasks and how to stay in sync with the upstream Langfuse project.
-
----
-
-## 🔐 One-Time Setup (Fork Initialization)
+T## 🔐 One-Time Setup (Fork Initialization)
 
 Only the maintainer should run this:
 
@@ -20,7 +16,7 @@ This will:
 - Generate `.env.local.example`
 - Copy the `docker-compose.override.yml`
 
-📁 Script: `customization/internal/bootstrap.sh`
+📁 Script: `customization/scripts/housekeeping/bootstrap.sh`
 
 ---
 
@@ -36,7 +32,7 @@ make check
 make update
 ```
 
-📁 Scripts: `customization/internal/check-upstream.sh`, `update-from-upstream.sh`
+📁 Scripts: `customization/scripts/housekeeping/check-upstream.sh`, `customization/scripts/housekeeping/update-from-upstream.sh`
 
 ---
 
@@ -74,11 +70,8 @@ git remote set-url --push upstream no_push
 
 ## 🧪 CI / Automation
 
-This repo includes custom workflows:
+This repo include a GitHub Action to lint shell scripts and Docker Compose of the `customization/` folder:
 - `.github/workflows/onboarding-lint.yml` – Lints shell scripts and Compose config
-- `.github/workflows/onboarding-langfuse-release-watch.yml` – Monitors new Langfuse releases
-
-These workflows are safe to leave alongside upstream’s own workflows.
 
 ---
 

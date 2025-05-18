@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-# ⚠️ MAINTAINER-ONLY SCRIPT
-# This script is ONLY intended for the fork maintainer to set up the project.
-# Teammates should never run this script.
-# Instead, they should:
+# ⚠️ Maintainer Setup Script
+# This script is intended for the fork maintainer to set up the project.
+# For team members, please use the following workflow instead:
 #    1. git clone https://github.com/your-username/langfuse-fork.git
 #    2. cd langfuse-fork
 #    3. make env && make up
@@ -69,16 +68,88 @@ git remote set-url --push upstream no_push
 # --- STEP 3: Generate .env.local.example with placeholders ---
 echo "📝 Creating .env.local.example..."
 cat >"$ENV_TEMPLATE_FILE" <<EOF
+# =============================================================================
+# SECURITY & AUTHENTICATION
+# =============================================================================
+# Security keys for encryption and authentication
+SALT=your-random-salt-key
+ENCRYPTION_KEY=your-random-encryption-key
+NEXTAUTH_SECRET=your-random-nextauth-secret
+NEXTAUTH_URL=http://localhost:3000
+
+# =============================================================================
+# DATABASE CONFIGURATION
+# =============================================================================
+# PostgreSQL
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=yourpassword
+POSTGRES_DB=postgres
 DATABASE_URL=postgresql://postgres:yourpassword@postgres:5432/postgres
+DIRECT_URL=postgresql://postgres:yourpassword@postgres:5432/postgres
+
+# ClickHouse
+CLICKHOUSE_USER=your-clickhouse-user
 CLICKHOUSE_PASSWORD=your-clickhouse-password
-LANGFUSE_S3_BATCH_EXPORT_SECRET_ACCESS_KEY=your-minio-secret
+CLICKHOUSE_URL=http://clickhouse:8123
+CLICKHOUSE_MIGRATION_URL=clickhouse://clickhouse:9000
+CLICKHOUSE_CLUSTER_ENABLED=false
+
+# Redis
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_AUTH=your-redis-password
+
+# =============================================================================
+# STORAGE CONFIGURATION
+# =============================================================================
+# Minio/S3 Root Credentials
+MINIO_ROOT_USER=your-minio-root-user
+MINIO_ROOT_PASSWORD=your-minio-root-password
+
+# S3 Access Keys (using Minio root credentials)
+LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID=your-minio-root-user
+LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID=your-minio-root-user
+LANGFUSE_S3_BATCH_EXPORT_ACCESS_KEY_ID=your-minio-root-user
 LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY=your-minio-secret
 LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY=your-minio-secret
-REDIS_AUTH=your-redis-password
-NEXTAUTH_SECRET=your-random-nextauth-secret
+LANGFUSE_S3_BATCH_EXPORT_SECRET_ACCESS_KEY=your-minio-secret
+
+# S3 Event Upload Configuration
+LANGFUSE_S3_EVENT_UPLOAD_BUCKET=langfuse
+LANGFUSE_S3_EVENT_UPLOAD_REGION=us-east-1
+LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT=http://minio:9000  # Internal Docker network port
+LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE=true
+LANGFUSE_S3_EVENT_UPLOAD_PREFIX=events/
+
+# S3 Media Upload Configuration
+LANGFUSE_S3_MEDIA_UPLOAD_BUCKET=langfuse
+LANGFUSE_S3_MEDIA_UPLOAD_REGION=us-east-1
+LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT=http://minio:9000  # Internal Docker network port
+LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE=true
+
+# S3 Batch Export Configuration
+LANGFUSE_S3_BATCH_EXPORT_ENABLED=false
+LANGFUSE_S3_BATCH_EXPORT_BUCKET=langfuse
+LANGFUSE_S3_BATCH_EXPORT_REGION=us-east-1
+LANGFUSE_S3_BATCH_EXPORT_ENDPOINT=http://minio:9000  # Internal Docker network port
+LANGFUSE_S3_BATCH_EXPORT_FORCE_PATH_STYLE=true
+LANGFUSE_S3_BATCH_EXPORT_PREFIX=exports/
+
+# =============================================================================
+# EMAIL CONFIGURATION
+# =============================================================================
+EMAIL_FROM_ADDRESS=""  # Defines the email address to use as the from address
+SMTP_CONNECTION_URL=""  # Defines the connection url for smtp server
+
+# =============================================================================
+# GENERAL SETTINGS
+# =============================================================================
+TELEMETRY_ENABLED=false
+LANGFUSE_LOG_LEVEL=debug
+NEXT_PUBLIC_LANGFUSE_RUN_NEXT_INIT=false  # Speeds up local development
 EOF
 
-echo "✅ .env.local.example created."
+echo "✅ Comprehensive .env.local.example created."
 
 # --- STEP 4: Copy override file if present ---
 OVERRIDE_SOURCE_PATH="$(dirname "$0")/../docker-compose.override.yml"
