@@ -21,8 +21,9 @@ make check-prereqs
 ```bash
 git clone https://github.com/macayaven/langfuse-fork.git
 cd langfuse-fork/customization
+git remote set-url origin https://github.com/macayaven/langfuse-fork.git
+git remote set-url --push origin https://github.com/macayaven/langfuse-fork.git
 git remote set-url --push upstream no_push # Prevent unintentional pushes to the official Langfuse repo 
-make env         # Generate .env from template
 make up          # Start the stack
 make health      # Check that everything is healthy
 ```
@@ -40,7 +41,6 @@ make down
 
 ```bash
 make check-prereqs   # Ensure Docker, Git, Make, etc. are installed
-make env             # Create .env from template
 make up              # Start Langfuse stack
 make down            # Stop the stack
 make health          # Check containers and endpoints
@@ -61,7 +61,7 @@ Once running, open:
 4. **Generate API keys**:
    - Go to Project Settings > API Keys
    - Create a new key pair
-   - Copy the values to your `.env` file:
+   - Copy the values to your `.env` file of the client project to be instrumented:
 
 ```bash
 # Add these to your .env file

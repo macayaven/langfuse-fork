@@ -14,7 +14,6 @@ This will:
 - Rename `origin` and `upstream` appropriately
 - Prevent accidental push to `upstream`
 - Push code to your personal fork
-- Generate `.env.local.example`
 - Copy the `docker-compose.override.yml`
 
 📁 Script: `customization/scripts/housekeeping/bootstrap.sh`
@@ -32,8 +31,6 @@ make check
 ```bash
 make update
 ```
-
-📁 Scripts: `customization/scripts/housekeeping/check-upstream.sh`, `customization/scripts/housekeeping/update-from-upstream.sh`
 
 ---
 
@@ -103,7 +100,7 @@ This will check:
 
 This fork respects the original Apache 2.0 license from Langfuse. All upstream files are left unmodified.
 
-Customization includes only local setup helpers and `.env`-based overrides.
+Customization includes only local setup helpers and docker overrides.
 
 ---
 
