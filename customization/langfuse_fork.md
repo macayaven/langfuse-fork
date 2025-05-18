@@ -1,4 +1,5 @@
-# 🛠️ Setup Guide
+# 🛠️ Setup Guide (Not required as part of users of this repository 
+https://github.com/macayaven/langfuse-fork)
 
 T## 🔐 One-Time Setup (Fork Initialization)
 
@@ -71,7 +72,9 @@ git remote set-url --push upstream no_push
 ## 🧪 CI / Automation
 
 This repo include a GitHub Action to lint shell scripts and Docker Compose of the `customization/` folder:
-- `.github/workflows/onboarding-lint.yml` – Lints shell scripts and Compose config
+- `.github/workflows/customization-lint.yml` – Lints shell scripts and Compose config
+
+I still need to figure out the best way to maintain this fork and keep it in sync with upstream.
 
 ---
 
@@ -92,19 +95,7 @@ make lint
 This will check:
 - Bash files in `customization/`
 - Formatting with `shfmt`
-- Docker Compose validity
-
----
-
-## 📦 Publishing a Local Bundle (Optional)
-
-You may create a `.zip` or `.tar.gz` of the `langfuse-onboarding` folder with:
-- `docker-compose.yml`, `override.yml`
-- `.env.local.example`
-- `scripts/` folder
-- A simple `run.sh`
-
-This lets teammates run locally without cloning the repo.
+- Docker Compose validity for `docker-compose.override.yml`
 
 ---
 
@@ -116,4 +107,9 @@ Customization includes only local setup helpers and `.env`-based overrides.
 
 ---
 
-🙋 Questions or changes? Contact Carlos Crespo.
+## 🙏 Acknowledgements
+
+This setup guide and supporting scripts are built on top of the amazing [Langfuse](https://github.com/langfuse/langfuse) project.  
+We are grateful to the Langfuse team for making such a well-documented and powerful observability platform available to the community.
+
+🙋 Questions or changes? Contact [Carlos Crespo](https://github.com/macayaven).

@@ -1,4 +1,4 @@
-name: Customization Lint
+name: Quality Check for onboarding additions
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    name: Lint Bash & Docker Compose
+    name: Lint Bash & Docker Compose for customization/ contents
     runs-on: ubuntu-latest
 
     steps:
