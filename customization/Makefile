@@ -1,10 +1,10 @@
 SHELL := /bin/bash
 MAKEFILE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-.PHONY: help env up down clean health \
+.PHONY: help up down clean health \
         bootstrap check update \
         admin-help check-prereqs \
-        install-linters lint
+        install-linters lint setup
 
 .DEFAULT_GOAL := help
 
@@ -26,15 +26,12 @@ help:
 	@echo ""
 	@echo "🔧 First-Time Setup Commands:"
 	@echo "  make check-prereqs - Check if your system meets the prerequisites"
-	@echo "  make env           - Generate .env file with secure secrets"
+	@echo "  make setup         - Clone langfuse forked repo with a"
 	@echo ""
 	@echo "🧹 Maintenance Commands:"
 	@echo "  make clean         - Stop Docker Compose stack and remove all resources (volumes, networks)"
 	@echo ""
 	@echo "🛠️ Fork Creation & Maintenance Commands: make admin-help"
-
-env:
-	bash $(CUSTOM_PATH)/scripts/generate-env.sh
 
 up:
 	bash $(CUSTOM_PATH)/scripts/up.sh

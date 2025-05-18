@@ -14,7 +14,18 @@ cd langfuse-fork || echo "❌ Failed to navigate to langfuse-fork directory. Abo
 # Make origin the default for push/pull
 git remote set-url origin "$FORKED_LANGFUSE_REPO"
 git remote set-url --push origin "$FORKED_LANGFUSE_REPO"
-git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
 
 # Prevent accidental pushes to upstream
 git remote set-url --push upstream no_push
+
+# Set the upstream branch to the main branch
+git branch --set-upstream-to=origin/main main || git branch --set-upstream-to=origin/master master
+
+# Check the current branch
+echo "🔍 Current branch:"
+git branch --show-current
+
+# Check the remote branches
+echo "🔍 Remote branches:"
+git branch -r
+
