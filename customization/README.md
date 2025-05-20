@@ -7,8 +7,12 @@
 ## 🧑‍💻 For Users
 
 ### ✅ Prerequisites
+- WSL2 up and running in your laptop. 
 - Docker + Docker Compose v2 ([Install Docker](https://docs.docker.com/get-docker/))
-- Git and Make installed
+- Configure Docker to run sudoless ([Manage Docker as a non-root user](https://docs.docker.com/engine/install/linux-postinstall/))
+- Git client installed
+- make command installed (can be added by installing the build-essentials package) 
+```sudo apt-get install build-essential```
 
 Check your environment with:
 ```bash
@@ -53,10 +57,10 @@ make health          # Check containers and endpoints
 Once running, open:
 👉 [http://localhost:3000](http://localhost:3000)
 
-### First-Time Setup Steps:
+### First-Time Setup Steps once the server is up and running:
 
 1. **Create a user account** - Sign up with your email
-2. **Create a team** - Give your organization a name
+2. **Create an organization** - Give your organization a name
 3. **Create a project** - Name your first project
 4. **Generate API keys**:
    - Go to Project Settings > API Keys
